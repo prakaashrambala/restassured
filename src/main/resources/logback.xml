@@ -1,0 +1,18 @@
+<configuration>
+
+    <!-- Console Appender for logging to the console -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="Console" />
+    </root>
+
+    <!-- You can configure specific loggers for classes here -->
+    <logger name="com.petstore" level="DEBUG" />
+    
+</configuration>

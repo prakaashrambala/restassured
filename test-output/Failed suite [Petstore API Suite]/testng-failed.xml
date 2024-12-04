@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="2" parallel="tests" name="Failed suite [Failed suite [Petstore API Suite]]" guice-stage="DEVELOPMENT">
+  <test thread-count="2" parallel="tests" name="Petstore API Tests(failed)(failed)">
+    <classes>
+      <class name="com.petstore.tests.PetstoreTestNG">
+        <methods>
+          <include name="updatePetTest"/>
+          <include name="deletePetTest"/>
+          <include name="setup"/>
+          <include name="teardown"/>
+          <include name="getPetTest"/>
+          <include name="createPetTest"/>
+        </methods>
+      </class> <!-- com.petstore.tests.PetstoreTestNG -->
+    </classes>
+  </test> <!-- Petstore API Tests(failed)(failed) -->
+</suite> <!-- Failed suite [Failed suite [Petstore API Suite]] -->

@@ -1,0 +1,18 @@
+{
+  "id": 121,
+  "category": {
+    "id": 200,
+    "name": "Big"
+  },
+  "name": "Musk",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 4,
+      "name": "hybrid"
+    }
+  ],
+  "status": "available"
+}
