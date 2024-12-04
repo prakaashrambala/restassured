@@ -36,7 +36,7 @@ jobs:
         uses: simple-elf/allure-report-action@v1.11
         if: always()
         with:
-          allure_results: target/allure-results
+          allure_results: allure-results
           allure_history: allure-history
 
       - name: Publish Allure Report
@@ -45,7 +45,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: allure-results
       
       #run: mvn -B package --file pom.xml
 
