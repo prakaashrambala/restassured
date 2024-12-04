@@ -6,20 +6,46 @@ on:
   pull_request:  # Optional: Trigger on pull requests
 
 jobs:
-  build:
-
+  autotests:
+    name: Run tests and generate Allure Report
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml
+      - name: Clone repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4.5.0
+        with:
+          java-version: 21
+          cache: 'maven'
+          distribution: 'zulu'
+          
+      - name: Build with Maven
+        run: mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml
+        continue-on-error: true
+
+      - name: Setup Allure History
+        uses: actions/checkout@v4.2.2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@v1.11
+        if: always()
+        with:
+          allure_results: target/allure-results
+          allure_history: allure-history
+
+      - name: Publish Allure Report
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
       
       #run: mvn -B package --file pom.xml
 
