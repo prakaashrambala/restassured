@@ -23,32 +23,29 @@ jobs:
       - name: Build with Maven
         run: mvn clean test -DsuiteXmlFile=src/test/resources/testng.xml
         continue-on-error: true
-
-      - name: Setup Allure History
-        uses: actions/checkout@v4.2.2
-        if: always()
-        continue-on-error: true
+        
+      - name: Get Allure history # Step to retrieve Allure history
+        uses: actions/checkout@v3
+        if: always() # Execute even if previous steps fail
+        continue-on-error: true # Continue execution even if the step fails
         with:
-          ref: gh-pages
-          path: gh-pages
+          ref: gh-pages # Specify the branch to retrieve Allure history from
+          path: gh-pages # Set the destination path for Allure history
 
-      - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1.11
-        if: always()
+      - name: Allure report action # Step to generate Allure report
+        uses: simple-elf/allure-report-action@master
+        if: always() # Execute even if previous steps fail
         with:
-          allure_results: allure-results
-          allure_history: allure-history
+          allure_results: allure-results # Specify the directory containing Allure results
+          allure_history: allure-history # Specify the directory to store Allure history
+          keep_reports: 5 # Specify the number of previous reports to keep
 
-      - name: Publish Allure Report
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4.0.0
+      - name: Deploy Allure report to GitHub Pages # Step to deploy Allure report to GitHub Pages
+        if: always() # Execute even if previous steps fail
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-reports
-      
-      #run: mvn -B package --file pom.xml
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
+          publish_branch: gh-pages # Specify the branch to publish the report to
+          publish_dir: allure-history # Specify the directory containing the report
 
-      # Uncomment these steps if you want to run tests:
-      # - name: Run tests with Maven
       #   run: mvn test
