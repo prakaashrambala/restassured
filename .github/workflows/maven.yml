@@ -45,7 +45,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-results
+          publish_dir: allure-reports
       
       #run: mvn -B package --file pom.xml
 
